@@ -28,7 +28,11 @@ public class LoginController {
     modelMap.put("password",password);
 
     //Auth
-    if(!authService.authenticate(name,password)) return "loginView/login";
+    if(!authService.authenticate(name,password)) {
+      modelMap.put("errormessage","Invalid Creds!! please try again");
+
+      return "loginView/login";
+    }
     return "Welcome";
   }
 
