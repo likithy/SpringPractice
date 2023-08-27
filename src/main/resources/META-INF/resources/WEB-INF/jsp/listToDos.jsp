@@ -11,7 +11,6 @@
 <table class="table">
 <thead>
 <tr>
-<th>id</th>
 <th>username</th>
 <th>description</th>
 <th>target date</th>
@@ -22,7 +21,6 @@
 </thead>
 <c:forEach items="${ToDos}" var ="todo">
 <tr>
-<td>${todo.id}</td>
 <td>${todo.username}</td>
 <td>${todo.description}</td>
 <td>${todo.targetDate}</td>

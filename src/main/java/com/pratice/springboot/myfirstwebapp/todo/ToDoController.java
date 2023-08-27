@@ -39,7 +39,7 @@ public class ToDoController {
       return "todo";
     }
     toDoService.addToDo(
-        model.get("name").toString(), todo.getDescription(), LocalDate.now().plusYears(1), false);
+        model.get("name").toString(), todo.getDescription(), todo.getTargetDate(), false);
     return "redirect:list-todos";
   }
 
@@ -49,10 +49,21 @@ public class ToDoController {
     return "redirect:list-todos";
   }
 
-  @RequestMapping("update-todo")
+  @RequestMapping(value = "update-todo",method = RequestMethod.GET)
   public String showUpdateToDoPage(@RequestParam("id") int id,ModelMap modelMap) {
     ToDo todo = toDoService.findById(id);
     modelMap.addAttribute("todo",todo);
     return "todo";
   }
+
+  @RequestMapping(value = "update-todo",method = RequestMethod.POST)
+  public String updateToDoPage(@ModelAttribute("todo") @Valid ToDo toDo,BindingResult result,ModelMap modelMap) {
+    if (result.hasErrors()) {
+      return "todo";
+    }
+    toDo.setUsername(modelMap.get("name").toString());
+    toDoService.updateToDo(toDo);
+    return "redirect:list-todos";
+  }
+
 }
