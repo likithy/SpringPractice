@@ -44,8 +44,15 @@ public class ToDoController {
   }
 
   @RequestMapping("delete-todo")
-  public String deleteToDo(ModelMap model, @RequestParam("id") int id) {
-toDoService.deleteToDoById(id);
+  public String deleteToDo(@RequestParam("id") int id) {
+    toDoService.deleteToDoById(id);
     return "redirect:list-todos";
+  }
+
+  @RequestMapping("update-todo")
+  public String showUpdateToDoPage(@RequestParam("id") int id,ModelMap modelMap) {
+    ToDo todo = toDoService.findById(id);
+    modelMap.addAttribute("todo",todo);
+    return "todo";
   }
 }
